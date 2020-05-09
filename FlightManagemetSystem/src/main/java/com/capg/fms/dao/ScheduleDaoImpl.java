@@ -15,28 +15,52 @@ public class ScheduleDaoImpl implements ScheduleDao {
 	@PersistenceContext
 	EntityManager entityManager;
 
-	// This module will add the schedule in the Schedule table.
+	/* Method:addSchedule
+	 * This method is used to add the schedule in the Schedule table.
+	 * Type:boolean
+	 * Parameter:Schedule
+	 * Author Name:Mahima Mishra
+	 * Version:
+	 */
 	@Override
-	public boolean addSchedule(Schedule schedule) {
+	public Schedule addSchedule(Schedule schedule) {
 		entityManager.persist(schedule);
-		return true;
+		return schedule;
 	}
 	
-	// This module will retrieve the schedule in the Schedule table.
+	/* Method:retrieveSchedule
+	 * This method is used to retrieve the schedule from the Schedule table.
+	 * Type:List<Schedule>
+	 * Parameter:scheduleId
+	 * Author Name:Mahima Mishra
+	 * Version:
+	 */
 	@Override
-	public Schedule retrieveSchedule(int scheduleid) {
-		return entityManager.find(Schedule.class, scheduleid);
+	public Schedule retrieveSchedule(int scheduleId) {
+		return entityManager.find(Schedule.class, scheduleId);
 	}
 	
-	// This module will retrieve all schedules in the Schedule table.
+	/* Method:retrieveAllSchedule
+	 * This method is used to retrieve all schedules from the Schedule table.
+	 * Type:List<Schedule>
+	 * Parameter:-
+	 * Author Name:Mahima Mishra
+	 * Version:
+	 */
 	@Override
-	public List<Schedule> retrieveAllSchedule(int scheduleId) {
-			String query = "select schedule from Schedule schedule where Schedule Id="+scheduleId;
+	public List<Schedule> retrieveAllSchedule() {
+			String query = "select schedule from Schedule schedule";
 			TypedQuery<Schedule> q = entityManager.createQuery(query, Schedule.class);
 			return q.getResultList();
 		}
 
-	// This module will update the schedule in the Schedule table.
+	/* Method:updateSchedule
+	 * This method is used to update the schedule in the Schedule table.
+	 * Type:boolean
+	 * Parameter:Schedule
+	 * Author Name:Mahima Mishra
+	 * Version:
+	 */	
 	@Override
 	public boolean updateSchedule(Schedule schedule) {
 		entityManager.getTransaction().begin();
@@ -45,11 +69,17 @@ public class ScheduleDaoImpl implements ScheduleDao {
 		return true;
 	}
 
-	// This module will delete the schedule in the Schedule table.
+	 	/* Method:deleteSchedule
+		 * This method is used to delete the schedule in the Schedule table.
+		 * Type:boolean
+		 * Parameter:scheduleId
+		 * Author Name:Mahima Mishra
+		 * Version:
+		 */
 	@Override
 	public boolean deleteSchedule(int scheduleid) {
 		Schedule schedule = entityManager.find(Schedule.class, scheduleid);
-		if(schedule !=null)
+		if(schedule!=null)
 		{
 			entityManager.remove(schedule);
 			return true;
@@ -58,8 +88,6 @@ public class ScheduleDaoImpl implements ScheduleDao {
 		return false;
 		
 	}
-
-
-	}
+}
 
 
