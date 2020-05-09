@@ -1,43 +1,60 @@
 package com.capg.fms.model;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="ScheduledFlights")
 public class ScheduledFlights {
-	private int serialno;
 	@Id
-	private int scheduleid;
-	private int flightid;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private int serialNo;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="Schedule_Id")
+	private Schedule schedule;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="Flight_Id")
+	private Flight flight;
+	
 	public ScheduledFlights() {
 		super();
 	}
-	public ScheduledFlights(int serialno, int scheduleid, int flightid) {
+
+	public ScheduledFlights(Schedule schedule, Flight flight) {
 		super();
-		this.serialno = serialno;
-		this.scheduleid = scheduleid;
-		this.flightid = flightid;
+		this.schedule = schedule;
+		this.flight = flight;
 	}
-	public int getSerialno() {
-		return serialno;
+
+	public Schedule getSchedule() {
+		return schedule;
 	}
-	public void setSerialno(int serialno) {
-		this.serialno = serialno;
+
+	public void setSchedule(Schedule schedule) {
+		this.schedule = schedule;
 	}
-	public int getScheduleid() {
-		return scheduleid;
+
+	public Flight getFlight() {
+		return flight;
 	}
-	public void setScheduleid(int scheduleid) {
-		this.scheduleid = scheduleid;
+
+	public void setFlight(Flight flight) {
+		this.flight = flight;
 	}
-	public int getFlightid() {
-		return flightid;
-	}
-	public void setFlightid(int flightid) {
-		this.flightid = flightid;
-	}
+
 	@Override
 	public String toString() {
-		return "ScheduledFlights [serialno=" + serialno + ", scheduleid=" + scheduleid + ", flightid=" + flightid + "]";
+		return "ScheduledFlights [schedule=" + schedule + ", flight=" + flight + "]";
 	}
+	
 }
