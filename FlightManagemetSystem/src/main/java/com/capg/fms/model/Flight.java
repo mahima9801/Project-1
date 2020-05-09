@@ -1,22 +1,35 @@
 package com.capg.fms.model;
 
-public class Flight {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="Flights")
+public class Flight {
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name="Flight_Id")
 	private long flightNumber;
-	private String flightModel;
+	
+	@Column(name="carrier_name")
 	private String carrierName;
+	
+	@Column(name="seat_capacity")
 	private int seatCapacity;
 	
-	public Flight(long flightNumber, String flightModel, String carrierName, int seatCapacity) {
+	public Flight() {
 		super();
-		this.flightNumber = flightNumber;
-		this.flightModel = flightModel;
-		this.carrierName = carrierName;
-		this.seatCapacity = seatCapacity;
 	}
 
-	public Flight() {
-		
+	public Flight(long flightNumber, String carrierName, int seatCapacity) {
+		super();
+		this.flightNumber = flightNumber;
+		this.carrierName = carrierName;
+		this.seatCapacity = seatCapacity;
 	}
 
 	public long getFlightNumber() {
@@ -25,14 +38,6 @@ public class Flight {
 
 	public void setFlightNumber(long flightNumber) {
 		this.flightNumber = flightNumber;
-	}
-
-	public String getFlightModel() {
-		return flightModel;
-	}
-
-	public void setFlightModel(String flightModel) {
-		this.flightModel = flightModel;
 	}
 
 	public String getCarrierName() {
@@ -50,6 +55,15 @@ public class Flight {
 	public void setSeatCapacity(int seatCapacity) {
 		this.seatCapacity = seatCapacity;
 	}
+
+	@Override
+	public String toString() {
+		return "Flight [flightNumber=" + flightNumber + ", carrierName=" + carrierName + ", seatCapacity="
+				+ seatCapacity + "]";
+	}
+
+	
+	
 	
 	
 	
